@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/YoussefHamedd/Task-Master-Pro-main.git'
+                git branch: 'main', url: 'https://github.com/MedAljane/DevOps-project.git'
             }
         }
         stage('mvn compile') {
@@ -36,8 +36,8 @@ pipeline {
                withSonarQubeEnv('sonar') {
                 sh '''
                   $SCANNER_HOME/bin/sonar-scanner \
-                  -Dsonar.projectName=Task-Master-Pro \
-                  -Dsonar.projectKey=Task-Master-Pro \
+                  -Dsonar.projectName=DevOps-project \
+                  -Dsonar.projectKey=DevOps-project \
                   -Dsonar.java.binaries=.
                 '''
         }
@@ -80,22 +80,11 @@ pipeline {
         stage('Docker push') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-cred', url: '') {
-                 sh "docker push mounajmai/task-master:latest"
+                 sh "docker push hammaljane/devops:latest"
                 
                 
             }
           }
-        }
-         stage('Deploy') {
-            steps {
-                withKubeConfig(caCertificate: '', clusterName: 'kubernetes', contextName: '', credentialsId: 'k8-cred', namespace: 'webapps', restrictKubeConfigAccess: false, serverUrl: 'https://172.31.44.30:6443') {
-                   
-                   sh """
-                   kubectl config set-credentials jenkins --token=\$(cat /var/jenkins_home/.k8-cred)
-                   kubectl apply -f deployment-service.yml
-                   """
-            }
-            }
         }
     }
 }
