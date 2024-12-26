@@ -66,7 +66,7 @@ pipeline {
         stage('Docker build') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-cred', url: '') {
-                 sh "docker build -t mounajmai/task-master:latest ."
+                 sh "docker build -t hammaljane/devops:latest ."
                 
                 
             }
