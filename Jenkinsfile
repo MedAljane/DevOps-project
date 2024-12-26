@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/MedAljane/DevOps-project.git'
+                git branch: 'main', url: 'https://github.com/MedAljane/Task-Master-Pro.git'
             }
         }
         stage('mvn compile') {
@@ -36,8 +36,8 @@ pipeline {
                withSonarQubeEnv('sonar') {
                 sh '''
                   $SCANNER_HOME/bin/sonar-scanner \
-                  -Dsonar.projectName=DevOps-project \
-                  -Dsonar.projectKey=DevOps-project \
+                  -Dsonar.projectName=Task-Master-Pro \
+                  -Dsonar.projectKey=Task-Master-Pro \
                   -Dsonar.java.binaries=.
                 '''
         }
