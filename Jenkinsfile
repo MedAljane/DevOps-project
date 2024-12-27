@@ -77,15 +77,6 @@ pipeline {
         //         sh "trivy image --format table -o trivy-fs-report.html gita/task-master:latest"
         //     }
         // }
-        stage('Docker push') {
-            steps {
-                withDockerRegistry(credentialsId: 'docker-cred', url: '') {
-                 sh "docker push hammaljane/devops:latest"
-                
-                
-            }
-          }
-        }
     }
 }
-}
+
